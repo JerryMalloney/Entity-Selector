@@ -1,6 +1,6 @@
 # Entity-Selector
 
-A entity selection system for TRiBot. Allows for easy selection of NPCs, Inventory items, Ground items, Objects, Players and Interfaces through method chaining.
+A entity selection system for TRiBot. Allows for easy selection of NPCs, Inventory items, Ground items, Bank items, Objects, Players and Interfaces through method chaining.
 It wraps around TRiBot's filters for best performance and compatibility.
 
 ### How to use
@@ -81,6 +81,7 @@ Inventory items can be selected by using
 
     RSItem item = Entities.find(ItemEntity::new)
             ...
+			
 Note that inventory items do not have positions, and thus do not have a #sortByDistance() method.
 
 #### Ground items
@@ -96,6 +97,7 @@ Objects can be selected by using
 
     RSObject object = Entities.find(ObjectEntity::new)
             ...
+			
 Note that when using the Object selector, a method #setDistance is available. You can use it to set the max search distance to find objects.
 If you do not set the value, a default value of 20 will be used.
 
@@ -103,17 +105,31 @@ If you do not set the value, a default value of 20 will be used.
 
 Players can be selected by using
 
-    RSPlayer object = Entities.find(PlayerEntity::new)
+    RSPlayer player = Entities.find(PlayerEntity::new)
             ...
-            
             
 #### Interfaces
 
-Players can be selected by using
+Interfaces can be selected by using
 
     RSInterface rsInterface = Entities.find(InterfaceEntity::new)
             ...
+			
 Note that interfaces do not have positions, and thus do not have a #sortByDistance() method.
+
+#### Bank items
+
+Bank items can be selected by using
+
+    RSItem item = Entities.find(BankItemEntity::new)
+            ...
+			
+Note that bank items do not have positions, and thus do not have a #sortByDistance() method.
+You can only use this when the bank screen is already open. Otherwise it will always return an empty array (getResults) or null (getFirstResult).
+It waits for bank items to be loaded if it has to, so you can use this right after Banking#openBank
+
+
+=== 
 
 If you have any questions, feel free to contact me.
 
