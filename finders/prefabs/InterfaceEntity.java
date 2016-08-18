@@ -1,5 +1,6 @@
 package scripts.entityselector.finders.prefabs;
 
+import org.tribot.api.General;
 import org.tribot.api2007.Interfaces;
 import org.tribot.api2007.types.RSInterface;
 import org.tribot.api2007.types.RSInterfaceChild;
@@ -36,17 +37,19 @@ public class InterfaceEntity extends FinderResult<RSInterface> {
      * Finds all the interfaces contained inside the specified master.
      * @param master
      */
-    public void inMaster(int master) {
+    public InterfaceEntity inMaster(int master) {
         this.selectedMaster = master;
+        return this;
     }
 
     /**
      * Finds all the interfaces contained inside the specified master and children.
      * @param master
      */
-    public void inMasterAndChild(int master, int child) {
-        this.selectedChild = master;
+    public InterfaceEntity inMasterAndChild(int master, int child) {
+        this.selectedMaster = master;
         this.selectedChild = child;
+        return this;
     }
 
     /**
@@ -543,9 +546,15 @@ public class InterfaceEntity extends FinderResult<RSInterface> {
         }
 
         // We have a payload. Lets apply all our filters.
-        Stream<RSInterface> stream = payload.stream().filter(
-                filters.stream().reduce(Predicate::and).orElse(t -> false)
-        );
+        Stream<RSInterface> stream;
+
+        if (filters.size() > 0) {
+            stream = payload.stream().filter(
+                    filters.stream().reduce(Predicate::and).orElse(t -> false)
+            );
+        } else {
+            stream = payload.stream();
+        }
 
         // And return the gold ;)
         return stream.toArray(RSInterface[]::new);
