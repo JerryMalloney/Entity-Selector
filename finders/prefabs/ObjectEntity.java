@@ -62,16 +62,42 @@ public class ObjectEntity extends SortableFinder<RSObject, ObjectEntity> {
     /**
      * {@link Filters.Objects#tileEquals}
      */
-    public ObjectEntity tileEquals(Positionable positionable) {
-        filters.add(Filters.Objects.tileEquals(positionable));
+    public ObjectEntity tileEquals(Positionable... positionable) {
+
+        Filter<RSObject> filter = null;
+
+        for (Positionable pos : positionable) {
+
+            if (filter == null)
+                filter = Filters.Objects.tileEquals(pos);
+            else
+                filter.or(Filters.Objects.tileEquals(pos), false);
+        }
+
+        if (filter != null)
+            filters.add(filter);
+
         return this;
     }
 
     /**
      * {@link Filters.Objects#tileNotEquals}
      */
-    public ObjectEntity tileNotEquals(Positionable positionable) {
-        filters.add(Filters.Objects.tileNotEquals(positionable));
+    public ObjectEntity tileNotEquals(Positionable... positionable) {
+
+        Filter<RSObject> filter = null;
+
+        for (Positionable pos : positionable) {
+
+            if (filter == null)
+                filter = Filters.Objects.tileNotEquals(pos);
+            else
+                filter.or(Filters.Objects.tileNotEquals(pos), false);
+        }
+
+        if (filter != null)
+            filters.add(filter);
+
         return this;
     }
 

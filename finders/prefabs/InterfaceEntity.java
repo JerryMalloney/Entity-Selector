@@ -1,11 +1,7 @@
 package scripts.entityselector.finders.prefabs;
 
-import org.tribot.api.General;
 import org.tribot.api2007.Interfaces;
-import org.tribot.api2007.types.RSInterface;
-import org.tribot.api2007.types.RSInterfaceChild;
-import org.tribot.api2007.types.RSInterfaceComponent;
-import org.tribot.api2007.types.RSInterfaceMaster;
+import org.tribot.api2007.types.*;
 import scripts.entityselector.finders.FinderResult;
 import scripts.entityselector.finders.Utils;
 
@@ -51,6 +47,113 @@ public class InterfaceEntity extends FinderResult<RSInterface> {
         this.selectedChild = child;
         return this;
     }
+
+    /**
+     * Finds all the interfaces whose text equals one of the specified texts.
+     * Case insensitive.
+     *
+     * @param text
+     * @return
+     */
+    public InterfaceEntity componentNameEquals(String... text) {
+
+        filters.add((rsInterface) -> {
+
+            String interfaceText = rsInterface.getComponentName();
+
+            if (interfaceText == null)
+                return false;
+
+            List searchList = Utils.stringListToLowercase(Arrays.asList(text));
+
+            return searchList.contains(interfaceText.toLowerCase());
+        });
+
+        return this;
+    }
+
+    /**
+     * Finds all the interfaces whose text do not equal any of the specified texts.
+     * Case insensitive.
+     *
+     * @param text
+     * @return
+     */
+    public InterfaceEntity componentNameNotEquals(String... text) {
+
+        filters.add((rsInterface) -> {
+
+            String interfaceText = rsInterface.getComponentName();
+
+            if (interfaceText == null)
+                return false;
+
+            List searchList = Utils.stringListToLowercase(Arrays.asList(text));
+
+            return !searchList.contains(interfaceText.toLowerCase());
+        });
+
+        return this;
+    }
+
+    /**
+     * Finds all the interfaces whose text contain one of the specified texts.
+     * Case insensitive.
+     *
+     * @param text
+     * @return
+     */
+    public InterfaceEntity componentNameContains(String... text) {
+
+        filters.add((rsInterface) -> {
+
+            String interfaceText = rsInterface.getComponentName();
+
+            if (interfaceText == null)
+                return false;
+
+            interfaceText = interfaceText.toLowerCase();
+
+            for (String t : text) {
+                if (interfaceText.contains(t.toLowerCase()))
+                    return true;
+            }
+
+            return false;
+        });
+
+        return this;
+    }
+
+    /**
+     * Finds all the interfaces whose text do not contain any of the specified texts.
+     * Case insensitive.
+     *
+     * @param text
+     * @return
+     */
+    public InterfaceEntity componentNameNotContains(String... text) {
+
+        filters.add((rsInterface) -> {
+
+            String interfaceText = rsInterface.getComponentName();
+
+            if (interfaceText == null)
+                return false;
+
+            interfaceText = interfaceText.toLowerCase();
+
+            for (String t : text) {
+                if (interfaceText.contains(t.toLowerCase()))
+                    return false;
+            }
+
+            return true;
+        });
+
+        return this;
+    }
+
 
     /**
      * Finds all the interfaces whose text equals one of the specified texts.
