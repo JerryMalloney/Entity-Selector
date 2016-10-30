@@ -4,12 +4,12 @@ import org.tribot.api.types.generic.Filter;
 import org.tribot.api2007.GroundItems;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSGroundItem;
-import scripts.entityselector.finders.SortableFinder;
+import scripts.entityselector.finders.PositionableFinder;
 
 /**
  * @author Laniax
  */
-public class GroundItemEntity extends SortableFinder<RSGroundItem, GroundItemEntity> {
+public class GroundItemEntity extends PositionableFinder<RSGroundItem, GroundItemEntity> {
 
     /**
      * {@link Filters.GroundItems#idEquals}

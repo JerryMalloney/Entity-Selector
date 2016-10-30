@@ -6,12 +6,13 @@ import org.tribot.api2007.Objects;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSObject;
-import scripts.entityselector.finders.SortableFinder;
+import scripts.entityselector.finders.PositionableFinder;
+import scripts.lanapi.game.helpers.ObjectsHelper;
 
 /**
  * @author Laniax
  */
-public class ObjectEntity extends SortableFinder<RSObject, ObjectEntity> {
+public class ObjectEntity extends PositionableFinder<RSObject, ObjectEntity> {
 
     private int distance = 20;
 
@@ -180,6 +181,39 @@ public class ObjectEntity extends SortableFinder<RSObject, ObjectEntity> {
         filters.add(Filters.Objects.modelVertexCount(counts));
         return this;
     }
+
+    /**
+     * Generates a filter that filters objects on the given type.
+     * @return
+     */
+    public ObjectEntity typeEquals(RSObject.TYPES type) {
+
+        filters.add(new Filter<RSObject>() {
+            @Override
+            public boolean accept(RSObject rsObject) {
+                return rsObject.getType() == type;
+            }
+        });
+
+        return this;
+    }
+
+    /**
+     * Generates a filter that filters objects on the given type.
+     * @return
+     */
+    public ObjectEntity typeNotEquals(RSObject.TYPES type) {
+
+        filters.add(new Filter<RSObject>() {
+            @Override
+            public boolean accept(RSObject rsObject) {
+                return rsObject.getType() == type;
+            }
+        });
+
+        return this;
+    }
+
 
     /**
      * {@inheritDoc}

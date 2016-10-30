@@ -6,12 +6,12 @@ import org.tribot.api2007.Players;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSPlayer;
-import scripts.entityselector.finders.SortableFinder;
+import scripts.entityselector.finders.PositionableFinder;
 
 /**
  * @author Laniax
  */
-public class PlayerEntity extends SortableFinder<RSPlayer, PlayerEntity> {
+public class PlayerEntity extends PositionableFinder<RSPlayer, PlayerEntity> {
 
     /**
      * {@link Filters.Players#inArea}

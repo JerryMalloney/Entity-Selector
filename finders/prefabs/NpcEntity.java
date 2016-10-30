@@ -6,12 +6,12 @@ import org.tribot.api2007.NPCs;
 import org.tribot.api2007.ext.Filters;
 import org.tribot.api2007.types.RSArea;
 import org.tribot.api2007.types.RSNPC;
-import scripts.entityselector.finders.SortableFinder;
+import scripts.entityselector.finders.PositionableFinder;
 
 /**
  * @author Laniax
  */
-public class NpcEntity extends SortableFinder<RSNPC, NpcEntity> {
+public class NpcEntity extends PositionableFinder<RSNPC, NpcEntity> {
 
     /**
      * {@link Filters.NPCs#idEquals}
